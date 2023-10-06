@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Attendance List</title>
+</head>
+<body>
+<h1>근태관리 List</h1>
+<table border="1">
+
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Date</th>
+    <th>On Time</th>
+    <th>Off Time</th>
+    <th>Status</th>
+    <th>Employee Name</th>
+    <th>Grade Name</th>
+    <th>Dept Name</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="attendance : ${allAttendances}">
+    <td th:text="${attendance.attendance_id}"></td>
+    <td th:text="${attendance.att_date}"></td>
+    <td>
+      <input type="text" th:value="${attendance.att_ontime}" id="ontime_${attendance.attendance_id}">
+    </td>
+    <td>
+      <input type="text" th:value="${attendance.att_offtime}" id="offtime_${attendance.attendance_id}">
+    </td>
+    <td>
+      <input type="text" th:value="${attendance.att_status}" id="status_${attendance.attendance_id}">
+    </td>
+    <td th:text="${attendance.emp_name}"></td>
+    <td th:text="${attendance.att_gradename}"></td>
+    <td th:text="${attendance.att_deptname}"></td>
+    <td>
+      <a href="#" th:onclick="'javascript:updateAttendance(' + ${attendance.attendance_id} + ')'" id="updateLink_${attendance.attendance_id}">수정</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+
+</body>
+</html>

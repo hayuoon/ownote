@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>출근 및 퇴근 기록</title>
+</head>
+<body>
+<h1>출근 및 퇴근 기록</h1>
+
+<p>출근 시간: <span id="attendanceTime">출근 기록 없음</span></p>
+<button id="recordAttendance">출근 기록</button>
+
+<p>퇴근 시간: <span id="leaveTime">퇴근 기록 없음</span></p>
+<button id="recordLeave">퇴근 기록</button>
+
+<script>
+    const attendanceTimeSpan = document.getElementById("attendanceTime");
+    const leaveTimeSpan = document.getElementById("leaveTime");
+
+    const recordAttendanceButton = document.getElementById("recordAttendance");
+    const recordLeaveButton = document.getElementById("recordLeave");
+
+    recordAttendanceButton.addEventListener("click", () => {
+        const currentTime = new Date().toLocaleString();
+        attendanceTimeSpan.textContent = currentTime;
+
+    });
+
+    recordLeaveButton.addEventListener("click", () => {
+        const currentTime = new Date().toLocaleString();
+        leaveTimeSpan.textContent = currentTime;
+
+    });
+
+
+
+
+</script>
+</body>
+</html>
