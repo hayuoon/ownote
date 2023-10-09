@@ -47,6 +47,13 @@ public class AttendanceService {
 
 
 
+
+
+
+
+
+
+
     public void deleteAttendanceById(Long attendanceId) {
     }
 
@@ -71,6 +78,9 @@ public class AttendanceService {
     }
 
     public void recordLeave(String leaveTime) {
+    }
+
+    public void editAttendance(Long id) {
     }
 }
 

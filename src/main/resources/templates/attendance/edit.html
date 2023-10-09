@@ -18,6 +18,7 @@
     <th>Employee Name</th>
     <th>Grade Name</th>
     <th>Dept Name</th>
+    <th>Action</th>
   </tr>
   </thead>
   <tbody>
@@ -37,8 +38,9 @@
     <td th:text="${attendance.att_gradename}"></td>
     <td th:text="${attendance.att_deptname}"></td>
     <td>
-      <a href="#" th:onclick="'javascript:updateAttendance(' + ${attendance.attendance_id} + ')'" id="updateLink_${attendance.attendance_id}">수정</a>
+      <a href="list1" class="btn">수정</a>
     </td>
+
   </tr>
   </tbody>
 </table>

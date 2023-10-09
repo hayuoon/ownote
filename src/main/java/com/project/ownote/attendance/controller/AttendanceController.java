@@ -28,11 +28,11 @@ public class AttendanceController {
         this.attendanceService = attendanceService;
     }
 
-    @GetMapping("/admin")
-    public String showAdminPage() {
-
-        return "attendance/admin";
-    }
+//    @GetMapping("/admin")
+//    public String showAdminPage() {
+//
+//        return "attendance/admin";
+//    }
 
 
 
@@ -63,19 +63,15 @@ public class AttendanceController {
 
 
 
-//    @GetMapping("/{attendance_id}/edit")
-//    public String editAttendanceForm(@PathVariable("attendance_id") Long attendanceId, Model model) {
-//        Attendance attendance = attendanceService.getAttendanceById(attendanceId);
-//        model.addAttribute("attendance", attendance);
-//        return "attendance/edit";
-//    }
 
-//    @PostMapping("/save")
-//    public String saveAttendance(@ModelAttribute Attendance attendance, @RequestParam("att_date") LocalDate att_date) {
-//        System.out.println(att_date);
-//        attendanceService.saveAttendance(attendance);
-//        return "attendance/list1";
-//    }
+    @GetMapping("/edit/{id}")
+    public String editAttendance(@PathVariable Long id) {
+        attendanceService.editAttendance(id);
+
+        return "redirect:/attendance/list";
+    }
+
+
 
     @GetMapping("/attendance/search")
     public String searchAttendance(@RequestParam(name = "searchDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate searchDate) {

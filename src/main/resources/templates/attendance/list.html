@@ -9,9 +9,9 @@
 <table border="1">
 
     <form th:action="@{/attendance/search}" method="get">
-        <label for="searchDate">날짜:</label>
-        <input type="date" id="searchDate" name="searchDate">
-        <button type="submit">조회</button>
+        <label for="employeeId">사원 번호:</label>
+        <input type="text" id="employeeId" name="employeeId">
+        <button type="button" onclick="location.href='list1';"> 조회 </button>
         <button type="button" onclick="location.href='edit';"> 수정 </button>
     </form>
 
