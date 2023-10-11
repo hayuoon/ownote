@@ -1,6 +1,7 @@
 package com.project.ownote.attendance.controller;
 
 import com.project.ownote.attendance.dto.Attendance;
+import com.project.ownote.attendance.dto.Dto;
 import com.project.ownote.attendance.service.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.http.HttpRequest;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -44,11 +46,65 @@ public class AttendanceController {
     }
 
     @GetMapping("/edit")
-    public String edit(Model model) {
-        List<Attendance> allAttendances = attendanceService.getAllAttendances();
-        model.addAttribute("allAttendances", allAttendances);
+    public String edit(Model model, @RequestParam Long attendance_id) {
+        Attendance attendance =  attendanceService.getAttendanceById(attendance_id);
+        System.out.println("컨트롤러");
+        System.out.println(attendance);
+//        List<Attendance> allAttendances = attendanceService.getAllAttendances();
+       model.addAttribute("allAttendances", attendanceService.getAttendanceById(attendance_id));
         return "attendance/edit";
     }
+
+//    @GetMapping("/update")
+//    public String update(@RequestParam(name = "attendance_id") Long attendanceId) {
+//        Attendance attendance = attendanceService.getAttendanceById(attendanceId);
+//        if (attendance != null) {
+//            attendanceService.updateAttendance(attendance);
+//        }
+//        return "redirect:/attendance/list";
+//    }
+
+        @GetMapping("/update")
+    public String update(Attendance attendance) {
+//        Attendance attendance = attendanceService.getAttendanceById(attendance);
+//        if (attendance != null) {
+
+            attendanceService.updateAttendance(attendance);
+            System.out.println(attendance);
+//        }
+        return "redirect:/attendance/list1";
+    }
+
+
+    @PostMapping("/update")
+    public String update1(@ModelAttribute Dto dto) {
+        // 입력 문자열
+        String timeString = dto.getAtt_offtime();
+        String timeString2 = dto.getAtt_ontime();
+        System.out.println("3038403840385038503583" + timeString2);
+
+        // 파싱할 시간 형식 정의
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        // 문자열을 LocalTime으로 변환
+        LocalTime localTime = LocalTime.parse(timeString, formatter);
+        LocalTime localTime2 = LocalTime.parse(timeString2, formatter);
+
+        Attendance attendance = attendanceService.getAttendanceById(dto.getAttendance_id());
+        attendance.setAtt_offtime(localTime);
+        attendance.setAtt_ontime(localTime2);
+        System.out.println("----------------------" + attendance);
+
+//        Attendance attendance = attendanceService.getAttendanceById(attendance);
+//        if (attendance != null) {
+
+        attendanceService.updateAttendance(attendance);
+
+
+//        }
+        return "redirect:/attendance/list1";
+    }
+
 
 
     @GetMapping("/{attendance_id}")
@@ -61,22 +117,16 @@ public class AttendanceController {
 
 
 
+//    @GetMapping("/edit/{id}")
+//    public String editAttendance(@PathVariable Long id) {
+//        attendanceService.editAttendance(id);
+//
+//        return "redirect:/attendance/list";
+//    }
 
 
 
-    @GetMapping("/edit/{id}")
-    public String editAttendance(@PathVariable Long id) {
-        attendanceService.editAttendance(id);
 
-        return "redirect:/attendance/list";
-    }
-
-
-
-    @GetMapping("/attendance/search")
-    public String searchAttendance(@RequestParam(name = "searchDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate searchDate) {
-        return "attendance/list";
-    }
 
 
 

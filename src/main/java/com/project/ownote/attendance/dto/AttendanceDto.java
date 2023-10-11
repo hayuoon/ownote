@@ -27,7 +27,7 @@ public class AttendanceDto {
     private String emp_name;
     private String att_gradename;
     private String att_deptname;
-
+    private Long emp_num;
 
 
     public void recordAttendance(LocalTime onTime) {

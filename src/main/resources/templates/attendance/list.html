@@ -12,13 +12,13 @@
         <label for="employeeId">사원 번호:</label>
         <input type="text" id="employeeId" name="employeeId">
         <button type="button" onclick="location.href='list1';"> 조회 </button>
-        <button type="button" onclick="location.href='edit';"> 수정 </button>
     </form>
 
 
     <thead>
     <tr>
         <th>ID</th>
+        <th>emp Num</th>
         <th>Date</th>
         <th>On Time</th>
         <th>Off Time</th>
@@ -31,7 +31,10 @@
     </thead>
     <tbody>
     <tr th:each="allAttendances : ${allAttendances}">
-        <td th:text="${allAttendances.attendance_id}"></td>
+        <td>
+            <a th:href="@{/attendance/edit(attendance_id=${allAttendances.attendance_id})}" th:text="${allAttendances.attendance_id}"></a>
+        </td>
+        <td th:text="${allAttendances.emp_num}"></td>
         <td th:text="${allAttendances.att_date}"></td>
         <td th:text="${allAttendances.att_ontime}"></td>
         <td th:text="${allAttendances.att_offtime}"></td>

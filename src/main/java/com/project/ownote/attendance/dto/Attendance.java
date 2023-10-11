@@ -23,20 +23,21 @@ public class Attendance {
     @Id
     private Long attendance_id;
     private LocalDate att_date;
-    private Time att_ontime;
-    private Time att_offtime;
+    private LocalTime att_ontime;
+    private LocalTime att_offtime;
     private String att_status;
     private String emp_name;
     private String att_gradename;
     private String att_deptname;
+    private Long emp_num;
 
-    public void recordAttendance(Time onTime) {
+    public void recordAttendance(LocalTime onTime) {
         this.att_ontime = onTime;
         this.att_status = "출근";
     }
 
 
-    public void recordLeave(Time offTime) {
+    public void recordLeave(LocalTime offTime) {
         this.att_offtime = offTime;
         this.att_status = "퇴근";
     }

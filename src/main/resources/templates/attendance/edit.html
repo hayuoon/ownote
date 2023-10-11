@@ -7,10 +7,10 @@
 <body>
 <h1>근태관리 List</h1>
 <table border="1">
-
   <thead>
   <tr>
     <th>ID</th>
+    <th>Emp Num</th>
     <th>Date</th>
     <th>On Time</th>
     <th>Off Time</th>
@@ -18,31 +18,32 @@
     <th>Employee Name</th>
     <th>Grade Name</th>
     <th>Dept Name</th>
-    <th>Action</th>
   </tr>
   </thead>
   <tbody>
-  <tr th:each="attendance : ${allAttendances}">
-    <td th:text="${attendance.attendance_id}"></td>
-    <td th:text="${attendance.att_date}"></td>
+  <form action="${pageContext.request.contextPath}/attendance/update" th:action="update" th:object="${dto}" method="post">
+    <tr th:each="item : ${allAttendances}">
+    <td th:text="${item.attendance_id}"></td>
+    <td th:text="${item.emp_num}"></td>
+    <td th:text="${item.att_date}"></td>
     <td>
-      <input type="text" th:value="${attendance.att_ontime}" id="ontime_${attendance.attendance_id}">
+      <input type="hidden" name="attendance_id" th:value="${item.attendance_id}">
+      <input type="text" name="att_ontime" th:value="${item.att_ontime}" id="ontime_${attendance.attendance_id}">
     </td>
     <td>
-      <input type="text" th:value="${attendance.att_offtime}" id="offtime_${attendance.attendance_id}">
+      <input type="text"  name="att_offtime" th:value="${item.att_offtime}" id="offtime_${attendance.attendance_id}">
     </td>
     <td>
-      <input type="text" th:value="${attendance.att_status}" id="status_${attendance.attendance_id}">
+      <input type="text"  name="att_status" th:value="${item.att_status}" id="status_${attendance.attendance_id}">
     </td>
-    <td th:text="${attendance.emp_name}"></td>
-    <td th:text="${attendance.att_gradename}"></td>
-    <td th:text="${attendance.att_deptname}"></td>
-    <td>
-      <a href="list1" class="btn">수정</a>
-    </td>
-
+    <td th:text="${item.emp_name}"></td>
+    <td th:text="${item.att_gradename}"></td>
+    <td th:text="${item.att_deptname}"></td>
   </tr>
+    <button type="submit"> 수정 </button>
+  </form>
   </tbody>
+
 </table>
 
 

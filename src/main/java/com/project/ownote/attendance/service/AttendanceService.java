@@ -26,8 +26,8 @@ public class AttendanceService {
     }
 
 
-    public Attendance getAttendanceById(Long attendanceId) {
-        return attendanceDao.getAttendanceById(attendanceId);
+    public Attendance getAttendanceById(Long attendance_id) {
+        return attendanceDao.getAttendanceById(attendance_id);
     }
 
 
@@ -36,19 +36,19 @@ public class AttendanceService {
     }
 
 
-    public void updateAttendance(Attendance attendance) {
-        attendanceDao.updateAttendance(attendance);
-    }
 
 
     public void deleteAttendance(Long attendanceId) {
         attendanceDao.deleteAttendance(attendanceId);
     }
 
+    public void updateAttendance(Attendance attendance) {
+        attendanceDao.updateAttendance(attendance);
+    }
 
-
-
-
+    public void editAttendance(Attendance attendance) {
+        attendanceDao.editAttendance(attendance);
+    }
 
 
 
@@ -57,7 +57,7 @@ public class AttendanceService {
     public void deleteAttendanceById(Long attendanceId) {
     }
 
-    public void recordAttendance(Long attendanceId, Time onTime) {
+    public void recordAttendance(Long attendanceId, LocalTime onTime) {
         Attendance attendance = getAttendanceById(attendanceId);
         if (attendance != null) {
             attendance.recordAttendance(onTime);
@@ -65,7 +65,7 @@ public class AttendanceService {
         }
     }
 
-    public void recordLeave(Long attendanceId, Time offTime) {
+    public void recordLeave(Long attendanceId, LocalTime offTime) {
         Attendance attendance = getAttendanceById(attendanceId);
         if (attendance != null) {
             attendance.recordLeave(offTime);
@@ -80,7 +80,6 @@ public class AttendanceService {
     public void recordLeave(String leaveTime) {
     }
 
-    public void editAttendance(Long id) {
-    }
+
 }
 

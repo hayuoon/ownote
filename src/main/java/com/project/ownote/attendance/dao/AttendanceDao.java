@@ -12,6 +12,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
@@ -28,9 +29,24 @@ public class AttendanceDao {
     }
 
 
+    //    public Attendance getAttendanceById(Long attendance_id) {
+//        System.out.println("엥" + attendanceRepository.findById(attendance_id).orElse(null));
+//        System.out.println("ㅇ2");
+//        return attendanceRepository.findById(attendance_id).orElse(null);
+//    }
     public Attendance getAttendanceById(Long attendance_id) {
-        return attendanceRepository.findById(attendance_id).orElse(null);
+        System.out.println("DAO");
+        System.out.println(attendance_id);
+        Optional<Attendance> result = attendanceRepository.findById(attendance_id);
+        System.out.println(result);
+        if (result.isPresent()) {
+            Attendance attendance = result.get();
+            System.out.println(attendance);
+            return attendance;
+        }
+        return null;
     }
+
 
 
     public List<Attendance> getAllAttendances() {
@@ -39,12 +55,13 @@ public class AttendanceDao {
 
 
     public void updateAttendance(Attendance attendance) {
-        if (attendanceRepository.existsById(attendance.getAttendance_id())) {
+        if (attendance != null && attendance.getAttendance_id() != null) {
             attendanceRepository.save(attendance);
         }
     }
 
-    public void recordAttendance(Long attendanceId, Time onTime) {
+
+    public void recordAttendance(Long attendanceId, LocalTime onTime) {
         Attendance attendance = getAttendanceById(attendanceId);
         if (attendance != null) {
             attendance.recordAttendance(onTime);
@@ -53,7 +70,7 @@ public class AttendanceDao {
     }
 
 
-    public void recordLeave(Long attendanceId, Time offTime) {
+    public void recordLeave(Long attendanceId, LocalTime offTime) {
         Attendance attendance = getAttendanceById(attendanceId);
         if (attendance != null) {
             attendance.recordLeave(offTime);
@@ -64,6 +81,9 @@ public class AttendanceDao {
 
     public void deleteAttendance(Long attendanceId) {
         attendanceRepository.deleteById(attendanceId);
+    }
+
+    public void editAttendance(Attendance attendance) {
     }
 }
 
