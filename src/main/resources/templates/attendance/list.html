@@ -8,10 +8,10 @@
 <h1>근태관리 List</h1>
 <table border="1">
 
-    <form th:action="@{/attendance/search}" method="get">
-        <label for="attendance_id">번호:</label>
-        <input type="text" id="attendance_id" name="attendance_id">
-        <button type="button" onclick="location.href='list1';"> 조회 </button>
+    <form th:action="@{/attendance/search(emp_num=${allAttendances[0].attendance_id})}" method="get">
+        <label for="emp_num">번호:</label>
+        <input type="text" id="emp_num" name="emp_num">
+        <button type="submit" onclick="location.href='list1';"> 조회 </button>
     </form>
 
 

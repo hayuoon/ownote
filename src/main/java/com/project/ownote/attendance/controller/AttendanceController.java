@@ -165,7 +165,7 @@ public class AttendanceController {
     public  String search(Model model, @RequestParam Long emp_num){
         List<Attendance> list = attendanceService.findByEmpNum(emp_num);
         model.addAttribute("allAttendances", list);
-        return "attendance/list1";
+        return "attendance/list";
     }
 
 
