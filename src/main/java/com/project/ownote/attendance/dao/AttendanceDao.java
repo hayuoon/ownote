@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -22,6 +26,8 @@ public class AttendanceDao {
 
     @Autowired
     private AttendanceRepository attendanceRepository;
+
+
 
 
     public void saveAttendance(Attendance attendance) {
@@ -46,6 +52,13 @@ public class AttendanceDao {
         }
         return null;
     }
+
+
+    public Attendance getAttendanceByAttendanceId(Long attendanceId) {
+        return attendanceRepository.findById(attendanceId).orElse(null);
+    }
+
+
 
 
 
@@ -84,6 +97,11 @@ public class AttendanceDao {
     }
 
     public void editAttendance(Attendance attendance) {
+    }
+
+
+    public List<Attendance> findByEmpNum(Long emp_num) {
+       return  attendanceRepository.findByEmpNum(emp_num);
     }
 }
 

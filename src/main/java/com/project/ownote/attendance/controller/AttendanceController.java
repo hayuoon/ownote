@@ -30,11 +30,6 @@ public class AttendanceController {
         this.attendanceService = attendanceService;
     }
 
-//    @GetMapping("/admin")
-//    public String showAdminPage() {
-//
-//        return "attendance/admin";
-//    }
 
 
 
@@ -55,25 +50,18 @@ public class AttendanceController {
         return "attendance/edit";
     }
 
-//    @GetMapping("/update")
-//    public String update(@RequestParam(name = "attendance_id") Long attendanceId) {
-//        Attendance attendance = attendanceService.getAttendanceById(attendanceId);
-//        if (attendance != null) {
+
+
+//        @GetMapping("/update")
+//    public String update(Attendance attendance) {
+////        Attendance attendance = attendanceService.getAttendanceById(attendance);
+////        if (attendance != null) {
+//
 //            attendanceService.updateAttendance(attendance);
-//        }
-//        return "redirect:/attendance/list";
+//            System.out.println(attendance);
+////        }
+//        return "redirect:/attendance/list1";
 //    }
-
-        @GetMapping("/update")
-    public String update(Attendance attendance) {
-//        Attendance attendance = attendanceService.getAttendanceById(attendance);
-//        if (attendance != null) {
-
-            attendanceService.updateAttendance(attendance);
-            System.out.println(attendance);
-//        }
-        return "redirect:/attendance/list1";
-    }
 
 
     @PostMapping("/update")
@@ -81,6 +69,7 @@ public class AttendanceController {
         // 입력 문자열
         String timeString = dto.getAtt_offtime();
         String timeString2 = dto.getAtt_ontime();
+        String status = dto.getAtt_status();
         System.out.println("3038403840385038503583" + timeString2);
 
         // 파싱할 시간 형식 정의
@@ -90,9 +79,11 @@ public class AttendanceController {
         LocalTime localTime = LocalTime.parse(timeString, formatter);
         LocalTime localTime2 = LocalTime.parse(timeString2, formatter);
 
+
         Attendance attendance = attendanceService.getAttendanceById(dto.getAttendance_id());
         attendance.setAtt_offtime(localTime);
         attendance.setAtt_ontime(localTime2);
+        attendance.setAtt_status(status);
         System.out.println("----------------------" + attendance);
 
 //        Attendance attendance = attendanceService.getAttendanceById(attendance);
@@ -100,43 +91,31 @@ public class AttendanceController {
 
         attendanceService.updateAttendance(attendance);
 
-
 //        }
         return "redirect:/attendance/list1";
     }
 
 
 
-    @GetMapping("/{attendance_id}")
-    public String viewAttendance(@PathVariable("attendance_id") Long attendanceId, Model model) {
-        Attendance attendance = attendanceService.getAttendanceById(attendanceId);
-        model.addAttribute("attendance", attendance);
-        return "attendance/view";
-    }
 
 
 
 
-//    @GetMapping("/edit/{id}")
-//    public String editAttendance(@PathVariable Long id) {
-//        attendanceService.editAttendance(id);
-//
-//        return "redirect:/attendance/list";
+//    @GetMapping("/{attendance_id}")
+//    public String viewAttendance(@PathVariable("attendance_id") Long attendanceId, Model model) {
+//        Attendance attendance = attendanceService.getAttendanceById(attendanceId);
+//        model.addAttribute("attendance", attendance);
+//        return "attendance/view";
 //    }
 
 
 
 
-
-
-
-
-
-    @GetMapping("/{attendance_id}/delete")
-    public String deleteAttendance(@PathVariable("attendance_id") Long attendanceId) {
-        attendanceService.deleteAttendanceById(attendanceId);
-        return "redirect:/attendance/list";
-    }
+//    @GetMapping("/{attendance_id}/delete")
+//    public String deleteAttendance(@PathVariable("attendance_id") Long attendanceId) {
+//        attendanceService.deleteAttendanceById(attendanceId);
+//        return "redirect:/attendance/list";
+//    }
 
 
     @GetMapping("/record")
@@ -180,6 +159,14 @@ public class AttendanceController {
     }
 
 
+
+
+    @GetMapping("/search")
+    public  String search(Model model, @RequestParam Long emp_num){
+        List<Attendance> list = attendanceService.findByEmpNum(emp_num);
+        model.addAttribute("allAttendances", list);
+        return "attendance/list1";
+    }
 
 
 

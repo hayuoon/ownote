@@ -15,6 +15,7 @@ import java.util.List;
 public class AttendanceService {
     private final AttendanceDao attendanceDao;
 
+
     @Autowired
     public AttendanceService(AttendanceDao attendanceDao) {
         this.attendanceDao = attendanceDao;
@@ -38,16 +39,16 @@ public class AttendanceService {
 
 
 
-    public void deleteAttendance(Long attendanceId) {
-        attendanceDao.deleteAttendance(attendanceId);
-    }
+//    public void deleteAttendance(Long attendanceId) {
+//        attendanceDao.deleteAttendance(attendanceId);
+//    }
 
     public void updateAttendance(Attendance attendance) {
         attendanceDao.updateAttendance(attendance);
     }
 
-    public void editAttendance(Attendance attendance) {
-        attendanceDao.editAttendance(attendance);
+    public Attendance getAttendanceByAttendanceId(Long attendanceId) {
+        return attendanceDao.getAttendanceByAttendanceId(attendanceId);
     }
 
 
@@ -80,6 +81,11 @@ public class AttendanceService {
     public void recordLeave(String leaveTime) {
     }
 
+
+
+    public List<Attendance> findByEmpNum(Long emp_num){
+        return attendanceDao.findByEmpNum(emp_num);
+    }
 
 }
 
